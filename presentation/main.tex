@@ -9,8 +9,8 @@
 \usetheme{Madrid}
 \usecolortheme{default}
 
-\setbeamersize{text margin left=1.5cm}
-\setbeamersize{text margin right=1.5cm}
+\setbeamersize{text margin left=0.8cm}
+\setbeamersize{text margin right=0.8cm}
 \setbeamersize{sidebar width left=0pt}
 \setbeamersize{sidebar width right=0pt}
 
@@ -41,6 +41,12 @@
 
 \begin{frame}
   \titlepage
+  \vspace{-0.5cm}
+  \begin{center}
+    \includegraphics[width=2.5cm]{images/github.png}
+    \\[0.2cm]
+    \small{https://github.com/michal-racko/pycon\_pl\_2025}
+  \end{center}
 \end{frame}
 
 \begin{frame}{Outline}
@@ -167,6 +173,13 @@
   \framesubtitle{Value of $\pi$ can be estimated using random sampling}
 
   \begin{columns}[c]
+    \begin{column}{0.6\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth]{images/pi_convergence.png}
+        \\[0.2cm]
+        \small{Monte Carlo estimates converge to the true value as $N \to \infty$}
+      \end{center}
+    \end{column}
     \begin{column}{0.4\textwidth}
       \textbf{Uncertainty estimation}
       \begin{itemize}
@@ -175,28 +188,176 @@
         \item Standard deviation: $\sigma \propto \frac{1}{\sqrt{N}}$
       \end{itemize}
     \end{column}
-    \begin{column}{0.6\textwidth}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{S\&P 500 price prediction}
+  \framesubtitle{Monte Carlo can model complex or poorly understood processes}
+
+  \textbf{Estimating via Random Sampling:} Random sampling can estimate quantities
+  of interest when the experimental setup is well designed
+
+  \vspace{0.5cm}
+
+  \textbf{Sample Size vs. Error:} Estimation error decreases as sample size grows,
+  although larger sample sizes increase computational complexity
+
+  \vspace{0.5cm}
+
+  \textbf{Quantifying Uncertainty:} Uncertainty can be inferred using
+  the properties of the probability distribution underlying the random samples
+
+  \vspace{0.5cm}
+\end{frame}
+
+\section{Financial Modeling}
+
+\begin{frame}{S\&P 500 price prediction}
+  \framesubtitle{Monte Carlo can model complex or poorly understood processes}
+  \begin{columns}[c]
+    \begin{column}{0.4\textwidth}
+      Let's divide and conquer
+      \vspace{0.5cm}
+
+      \textbf{Decompose timeseries}
+      \begin{itemize}
+        \item Exponential Trend: $P_{\text{e}}(t) = a \cdot e^{bt} + c$
+        \item Brownian motion: $\Delta P_{\text{b}}(t) = \frac{P(t) - P_{\text{e}}(t)}{P_{\text{e}}(t)}$
+      \end{itemize}
+
+      \vspace{0.6cm}
+      $P(t) = P_{\text{e}}(t) \times (1 + \Delta P_{\text{b}}(t))$
+    \end{column}
+    \begin{column}{0.5\textwidth}
       \begin{center}
-        \includegraphics[width=\textwidth]{images/pi_convergence.png}
+        \includegraphics[width=\textwidth]{images/snp500-fit.png}
         \\[0.2cm]
-        \small{Monte Carlo estimates converge to the true value as $N \to \infty$}
+        \small{Exponential growth of S\&P 500}
       \end{center}
     \end{column}
   \end{columns}
 \end{frame}
 
+\begin{frame}{S\&P 500 price prediction}
+  \framesubtitle{Monte Carlo can model complex or poorly understood processes}
+
+  \textbf{Triple Gaussian mixture:}
+  $$f(x) = a_1 \cdot \mathcal{N}(\mu_1, \sigma_1^2) + a_2 \cdot \mathcal{N}(\mu_2, \sigma_2^2) + a_3 \cdot \mathcal{N}(\mu_3, \sigma_3^2)$$
+
+  \begin{columns}[c]
+  \begin{column}{0.6\textwidth}
+    \includegraphics[width=\textwidth]{images/triple_gauss.png}
+  \end{column}
+  \begin{column}{0.4\textwidth}
+    \textbf{Different regimes}
+    \begin{itemize}
+      \item Normal market conditions
+      \item Market stress/crashes
+      \item Market euphoria/bubbles
+    \end{itemize}
+  \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{S\&P 500 price prediction}
+\framesubtitle{Monte Carlo can model complex or poorly understood processes}
+
+Now draw random samples from the fitted distribution
+
+\vspace{0.5cm}
+
+\begin{lstlisting}
+>>> import numpy as np
+>>> N_SAMPLES = 10_000
+>>> total_weight = a1 + a2 + a3
+>>> component_choice = np.random.random(N_SAMPLES)
+>>> samples = np.where(
+...     component_choice < a1 / total_weight,
+...     np.random.normal(mu1, sigma1, N_SAMPLES),
+...     np.where(
+...         component_choice < (a1 + a2) / total_weight,
+...         np.random.normal(mu2, sigma2, N_SAMPLES),
+...         np.random.normal(mu3, sigma3, N_SAMPLES)
+...     )
+... )
+>>> samples
+array([-0.00252675,  0.15553425,  0.0344586 , ...,  0.01754364,
+       -0.01048925, -0.01011193], shape=(10000,))
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+and repeat this for every timestep of our simulation\dots
+
+\end{frame}
+
+\begin{frame}{S\&P 500 price prediction}
+  \framesubtitle{Monte Carlo can model complex or poorly understood processes}
+  \begin{columns}[c]
+    \begin{column}{0.4\textwidth}
+      \textbf{Many experiments}
+      \begin{itemize}
+        \item Every simulated path represents an alternative reality following the same principles as our real data
+        \item The more paths in a given region the more likely it is to occur
+        \item Variance reduction techniques help focus on important regions
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth]{images/brownian_paths.png}
+        \\[0.2cm]
+        \small{Simulated S\&P 500 paths}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{S\&P 500 price prediction}
+  \framesubtitle{Monte Carlo can model complex or poorly understood processes}
+  \begin{columns}[c]
+      \begin{column}{0.5\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth]{images/posterior.png}
+        \\[0.2cm]
+        \small{Monte Carlo posterior is comprised of results of all of the parallel experiments run by the model}
+      \end{center}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \textbf{Our simulation}
+      \begin{itemize}
+        \item Gives probability estimates for future outcomes
+        \item Past two years get Z-score of 1.0444
+        \item While this model is rather simplistic it still provides useful insights
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Starting at square one}
+  \framesubtitle{Value of $\pi$ can be estimated using random sampling}
+
+  \textbf{Modeling with Monte Carlo:} Complex or poorly understood processes
+  can be modeled using random distributions, which Monte Carlo methods then
+  leverage to simulate possible future outcomes
+
+  \vspace{0.5cm}
+
+  \textbf{Assessing Future Outcomes:} Posterior distributions allow us to
+  estimate the likelihood of future outcomes, providing a powerful tool
+  for assessing risks and opportunities
+
+  \vspace{0.5cm}
+
+  \textbf{Statistical Weight Implementation:} Variance reduction techniques
+  allow our model to concentrate computational effort on the most important
+  regions of the outcome space
+
+  \vspace{0.5cm}
+\end{frame}
+
 \begin{frame}{Thank You!}
   \begin{center}
     \Large{I'm looking forward to answering your questions}
-    
-    \vspace{1cm}
-    
-    \textbf{Key Messages:}
-    \begin{itemize}
-      \item Monte Carlo methods are powerful for complex problems
-      \item Variance reduction techniques can significantly improve efficiency
-      \item Measurement without uncertainty is meaningless
-    \end{itemize}
   \end{center}
 \end{frame}
 
