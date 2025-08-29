@@ -3,3 +3,4 @@ matplotlib
 scipy
 yfinance
 pandas
+folium
