@@ -49,9 +49,9 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{Outline}
-  \tableofcontents
-\end{frame}
+% \begin{frame}{Outline}
+%   \tableofcontents
+% \end{frame}
 
 \section{Introduction}
 
@@ -333,8 +333,8 @@ and repeat this for every timestep of our simulation\dots
   \end{columns}
 \end{frame}
 
-\begin{frame}{Starting at square one}
-  \framesubtitle{Value of $\pi$ can be estimated using random sampling}
+\begin{frame}{S\&P 500 price prediction}
+  \framesubtitle{Monte Carlo can model complex or poorly understood processes}
 
   \textbf{Modeling with Monte Carlo:} Complex or poorly understood processes
   can be modeled using random distributions, which Monte Carlo methods then
@@ -351,6 +351,101 @@ and repeat this for every timestep of our simulation\dots
   \textbf{Statistical Weight Implementation:} Variance reduction techniques
   allow our model to concentrate computational effort on the most important
   regions of the outcome space
+
+  \vspace{0.5cm}
+\end{frame}
+
+\section{Probabilistic Optimization}
+
+\begin{frame}{Probabilistic Optimization}
+  \framesubtitle{Simulated Annealing escapes local optima}
+  \begin{columns}[c]
+    \begin{column}{0.4\textwidth}
+      \textbf{The Challenge:} Roadtrip around Poland
+      \vspace{0.5cm}
+
+      \textbf{Problem complexity}
+      \begin{itemize}
+        \item NP-hard optimization problem
+        \item $(n-1)!/2$ possible routes for n cities
+        \item 21 cities $\to$ $\sim10^{17}$ combinations
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth]{images/tsp-naive.png}
+        \\[0.2cm]
+        \small{Naive solution to TSP gets trapped in a local minimum}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Probabilistic Optimization}
+  \framesubtitle{Simulated Annealing escapes local optima}
+
+  \begin{columns}[c]
+    \begin{column}{0.4\textwidth}
+      \textbf{Common for:}
+
+      \begin{itemize}
+        \item Sheet metal production
+        \item Quartz minerals
+        \item Nuclear energy
+      \end{itemize}
+
+      \vspace{0.5cm}
+
+      \textbf{Boltzmann Distribution:}
+      $$P(E) \propto e^{-\frac{E}{k_B T}}$$
+
+      \textbf{Simulated annalogy:}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      \includegraphics[width=\textwidth]{images/annealing-history.png}
+    \end{column}
+  \end{columns}
+
+  \vspace{0.5cm}
+
+  $$P(\text{accept worse solution}) = e^{-\frac{\text{distance increase}}{T}}$$
+\end{frame}
+
+\begin{frame}{Probabilistic Optimization}
+  \framesubtitle{Simulated Annealing escapes local optima}
+  \begin{columns}[c]
+    \begin{column}{0.4\textwidth}
+      \textbf{Algorithm}
+      \begin{itemize}
+        \item \textbf{Exploration phase} high T $\Rightarrow$ most moves are accepted
+        \item \textbf{Exploitation phase} low T $\Rightarrow$ only improvements are accepted
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      \begin{center}
+        \includegraphics[width=\textwidth]{images/tsp-annealing.png}
+        \\[0.2cm]
+        \small{Simulated annealing finds approximation to the optimal solution}
+      \end{center}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Probabilistic Optimization}
+  \framesubtitle{Simulated Annealing escapes local optima}
+
+  \textbf{Monte Carlo in Optimization:} Randomness enables exploration of solution
+  spaces that deterministic algorithms cannot effectively navigate
+
+  \vspace{0.5cm}
+
+  \textbf{Temperature Scheduling:} Controlled cooling balances exploration
+  (high temperature) with exploitation (low temperature) to find global optima
+
+  \vspace{0.5cm}
+
+  \textbf{Real-world Impact:} TSP principles apply to logistics, manufacturing,
+  and many more\dots
 
   \vspace{0.5cm}
 \end{frame}
