@@ -49,10 +49,6 @@
   \end{center}
 \end{frame}
 
-% \begin{frame}{Outline}
-%   \tableofcontents
-% \end{frame}
-
 \section{Introduction}
 
 \begin{frame}{What are Monte Carlo methods?}
@@ -102,7 +98,7 @@
 \end{frame}
 
 \begin{frame}{Starting at square one}
-\framesubtitle{Value of $\pi$ can be estimated using random sampling}
+  \framesubtitle{Value of $\pi$ can be estimated using random sampling}
   \textbf{Key Insight:} All random points are uniformly distributed in the square
 
   \begin{itemize}
@@ -116,7 +112,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{Starting at square one}
-\framesubtitle{Value of $\pi$ can be estimated using random sampling}
+  \framesubtitle{Value of $\pi$ can be estimated using random sampling}
 \begin{lstlisting}
 >>> import numpy as np
 >>> class MonteCarloSamples:
@@ -191,8 +187,8 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}{S\&P 500 price prediction}
-  \framesubtitle{Monte Carlo can model complex or poorly understood processes}
+\begin{frame}[fragile]{Starting at square one}
+  \framesubtitle{Value of $\pi$ can be estimated using random sampling}
 
   \textbf{Estimating via Random Sampling:} Random sampling can estimate quantities
   of interest when the experimental setup is well designed
@@ -260,7 +256,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{S\&P 500 price prediction}
-\framesubtitle{Monte Carlo can model complex or poorly understood processes}
+  \framesubtitle{Monte Carlo can model complex or poorly understood processes}
 
 Now draw random samples from the fitted distribution
 
@@ -287,7 +283,7 @@ array([-0.00252675,  0.15553425,  0.0344586 , ...,  0.01754364,
 
 \vspace{0.5cm}
 
-and repeat this for every timestep of our simulation\dots
+and repeat this for every timestep of our simulation\ldots
 
 \end{frame}
 
@@ -315,18 +311,18 @@ and repeat this for every timestep of our simulation\dots
 \begin{frame}{S\&P 500 price prediction}
   \framesubtitle{Monte Carlo can model complex or poorly understood processes}
   \begin{columns}[c]
-      \begin{column}{0.5\textwidth}
+    \begin{column}{0.5\textwidth}
       \begin{center}
         \includegraphics[width=\textwidth]{images/posterior.png}
         \\[0.2cm]
-        \small{Monte Carlo posterior is comprised of results of all of the parallel experiments run by the model}
+        \small{Monte Carlo posterior comprises results from all parallel experiments}
       \end{center}
     \end{column}
     \begin{column}{0.5\textwidth}
       \textbf{Our simulation}
       \begin{itemize}
         \item Gives probability estimates for future outcomes
-        \item Past two years get Z-score of 1.0444
+        \item Past two years gets a Z-score of 1.0444
         \item While this model is rather simplistic it still provides useful insights
       \end{itemize}
     \end{column}
@@ -355,9 +351,9 @@ and repeat this for every timestep of our simulation\dots
   \vspace{0.5cm}
 \end{frame}
 
-\section{Probabilistic Optimization}
+\section{Probabilistic optimization}
 
-\begin{frame}{Probabilistic Optimization}
+\begin{frame}{Probabilistic optimization}
   \framesubtitle{Simulated Annealing escapes local optima}
   \begin{columns}[c]
     \begin{column}{0.4\textwidth}
@@ -381,7 +377,7 @@ and repeat this for every timestep of our simulation\dots
   \end{columns}
 \end{frame}
 
-\begin{frame}{Probabilistic Optimization}
+\begin{frame}{Probabilistic optimization}
   \framesubtitle{Simulated Annealing escapes local optima}
 
   \begin{columns}[c]
@@ -399,7 +395,7 @@ and repeat this for every timestep of our simulation\dots
       \textbf{Boltzmann Distribution:}
       $$P(E) \propto e^{-\frac{E}{k_B T}}$$
 
-      \textbf{Simulated annalogy:}
+      \textbf{Simulated analogy:}
     \end{column}
     \begin{column}{0.6\textwidth}
       \includegraphics[width=\textwidth]{images/annealing-history.png}
@@ -411,7 +407,7 @@ and repeat this for every timestep of our simulation\dots
   $$P(\text{accept worse solution}) = e^{-\frac{\text{distance increase}}{T}}$$
 \end{frame}
 
-\begin{frame}{Probabilistic Optimization}
+\begin{frame}{Probabilistic optimization}
   \framesubtitle{Simulated Annealing escapes local optima}
   \begin{columns}[c]
     \begin{column}{0.4\textwidth}
@@ -434,7 +430,7 @@ and repeat this for every timestep of our simulation\dots
   \end{columns}
 \end{frame}
 
-\begin{frame}{Probabilistic Optimization}
+\begin{frame}{Probabilistic optimization}
   \framesubtitle{Simulated Annealing escapes local optima}
 
   \textbf{Monte Carlo in Optimization:} Randomness enables exploration of solution
@@ -448,7 +444,7 @@ and repeat this for every timestep of our simulation\dots
   \vspace{0.5cm}
 
   \textbf{Real-world Impact:} TSP principles apply to logistics, manufacturing,
-  and many more\dots
+  and many more\ldots
 
   \vspace{0.5cm}
 \end{frame}
